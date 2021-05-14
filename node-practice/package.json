@@ -1,0 +1,14 @@
+{
+  "name": "node-practice",
+  "version": "1.0.0",
+  "description": "course practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kirthana",
+  "license": "ISC",
+  "dependencies": {
+    "marvel-comics-characters": "^1.1.1"
+  }
+}

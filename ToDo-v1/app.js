@@ -1,19 +1,33 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { urlencoded } = require('body-parser');
 
 const app = express();
 
-app.get("/", function (req, res) {
+let items = ["Web Dev", "GCR work", "Internship Work"];
+app.set("view engine", "ejs");
 
-    var today = new Date();
-    if (today.getDay() === 5 || today.getDay() === 0) {
-        //can't write a lot of res.send but we can use res.write instead
-        res.sendFile(__dirname + "/index.html");
-    }
-    else {
-        res.write("Offoo! It's not a weekend");
-        res.send();
-    }
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.get("/", function (req, res) {
+    let today = new Date();
+    let options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+    };
+    let day = today.toLocaleDateString("en-US", options);
+    res.render("list", {
+        kindofDay: day,
+        newListItems: items,
+    });
+});
+
+app.post("/", function (req, res) {
+    let item = req.body.newItem;
+    items.push(item);
+    res.redirect("/");
 });
 
 app.listen(3000, function () {
